@@ -1,4 +1,7 @@
-# Contact Model
+"""
+Contact database model.
+
+"""
 
 from sqlalchemy import Column, Integer, String, Sequence
 

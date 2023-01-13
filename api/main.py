@@ -1,36 +1,40 @@
 """
 Author: Daniel W. Jongepier
-Purpose: Store contact information in a database.
+Purpose: Store contact information in a Postgresql database.
 """
+from fastapi import FastAPI, Security, Depends, HTTPException
+from fastapi.security.api_key import APIKeyHeader
+from fastapi_crudrouter import SQLAlchemyCRUDRouter
+from starlette.status import HTTP_403_FORBIDDEN
 
 from db import SessionLocal, engine
 from models import ContactModel, Base
 from schema import Contact, CreateContact
 from config import Settings
 
-from fastapi import FastAPI, Security, Depends, HTTPException
-from fastapi.security.api_key import APIKeyHeader
-from fastapi_crudrouter import SQLAlchemyCRUDRouter
-
-from starlette.status import HTTP_403_FORBIDDEN
 
 # Instantiate the settings
 settings = Settings()
 
 # Print the used settings to console:
-print(f"Database URI: {settings.database_uri} \n"
-      f"API-Key: {settings.api_key}")
+# print(f"Database URI: {settings.database_uri} \n"
+#       f"API-Key: {settings.api_key}")
 
+# Set the access token en key name.
 API_KEY = settings.api_key
 API_KEY_NAME = "access_token"
 
+# Define the APIKeyHeader to check for.
 api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
 
+# Create the metadata and bind to database engine.
 Base.metadata.create_all(bind=engine)
 
+# Instantiate the application based on FastAPI.
 app = FastAPI()
 
 
+# Function to open and close the database connection on use.
 def get_db():
     session = SessionLocal()
     try:
@@ -40,6 +44,7 @@ def get_db():
         session.close()
 
 
+# Function to check if the ApiKey provided matches the key expected.
 def key_auth(api_key_header: str = Security(api_key_header)):
 
     if api_key_header == API_KEY:
@@ -50,6 +55,7 @@ def key_auth(api_key_header: str = Security(api_key_header)):
         )
 
 
+# Define the CRUDRouter.
 router = SQLAlchemyCRUDRouter(
     schema=Contact,
     create_schema=CreateContact,
@@ -60,4 +66,5 @@ router = SQLAlchemyCRUDRouter(
     dependencies=[Depends(key_auth)]
 )
 
+# Update the already instantiated FastAPI instance with the CRUDRouter.
 app.include_router(router)
