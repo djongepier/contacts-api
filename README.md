@@ -40,7 +40,7 @@ For use in Portainer of with docker-compose.
 
 ---
 ```
-Version "3"`
+Version "3"
 
 services:
   server:
