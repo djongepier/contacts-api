@@ -6,3 +6,4 @@ alembic.ini
 .git
 __pycache__
 *.md
+secrets.json

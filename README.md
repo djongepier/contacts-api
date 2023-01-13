@@ -40,25 +40,28 @@ For use in Portainer of with docker-compose.
 
 ---
 ```
-Version "3"
+networks:
+  contacts-api:
+    external: false
 
 services:
   server:
-    image: djongepier/contacts-api
+    image: djongepier/contacts-api:latest
     container_name: contacts-api
     environment:
       - USER_UID=1000
       - USER_GID=1000
-      - CONTACTS_DATABASE_HOST=
+      - CONTACTS_API_KEY=<your super secret key>
+      - CONTACTS_DATABASE_HOST=db
       - CONTACTS_DATABASE_PORT=5432
-      - CONTACTS_DATABASE_DB=
-      - CONTACTS_DATABASE_USER
-      - CONTACTS_DATABASE_PASSWORD
+      - CONTACTS_DATABASE_DB=contacts-api
+      - CONTACTS_DATABASE_USER=contacts
+      - CONTACTS_DATABASE_PASSWORD=contacts
     restart: always
     networks:
       - contacts-api
     ports:
-      - 80:<your port>
+      - <your port>:80
     depends_on:
       - db
    

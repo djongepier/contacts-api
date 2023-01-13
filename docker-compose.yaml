@@ -1,0 +1,37 @@
+Version: "3"
+
+networks:
+  gitea:
+    external: false
+
+services:
+  server:
+    image: djongepier/contacts-api
+    container_name: contacts-api
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - CONTACTS_DATABASE_HOST=
+      - CONTACTS_DATABASE_PORT=5432
+      - CONTACTS_DATABASE_DB=
+      - CONTACTS_DATABASE_USER
+      - CONTACTS_DATABASE_PASSWORD
+    restart: always
+    networks:
+      - contacts-api
+    ports:
+      - 80:<your port>
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      - POSTGRES_USER=contacts
+      - POSTGRES_PASSWORD=contacts
+      - POSTGRES_DB=contacts-api
+    networks:
+      - contacts-api
+    volumes:
+      - <your directory or volume>:/var/lib/postgresql/data
