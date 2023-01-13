@@ -6,7 +6,7 @@ import os
 import json
 from pathlib import Path
 
-SECRETS_FILE = Path().resolve().parents[0] / ".secrets.json"
+SECRETS_FILE = Path().resolve() / ".secrets.json"
 
 
 class Settings:

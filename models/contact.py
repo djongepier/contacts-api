@@ -5,7 +5,7 @@ Contact database model.
 
 from sqlalchemy import Column, Integer, String, Sequence
 
-from db import Base
+from db.postgres import Base
 
 
 class ContactModel(Base):
@@ -22,3 +22,4 @@ class ContactModel(Base):
     house_number = Column(String(254))
     postalcode = Column(String(254))
     residence = Column(String(254))
+    phone_number = Column(String(20), nullable=True)

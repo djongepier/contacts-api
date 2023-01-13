@@ -7,10 +7,10 @@ from fastapi.security.api_key import APIKeyHeader
 from fastapi_crudrouter import SQLAlchemyCRUDRouter
 from starlette.status import HTTP_403_FORBIDDEN
 
-from db import SessionLocal, engine
-from models import ContactModel, Base
-from schema import Contact, CreateContact
-from config import Settings
+from db.postgres import SessionLocal, engine
+from models.contact import ContactModel, Base
+from schema.contacts import Contact, CreateContact
+from config.settings import Settings
 
 
 # Instantiate the settings

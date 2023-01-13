@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from config import Settings
+from config.settings import Settings
 
 # Instantiate the settings.
 settings = Settings()
@@ -21,5 +21,5 @@ engine = create_engine(
 # Create the Session
 SessionLocal = sessionmaker(bind=engine)
 
-# Define the Base as declarative, to be used in the models.py file.
+# Define the Base as declarative, to be used in the contact.py file.
 Base = declarative_base()
