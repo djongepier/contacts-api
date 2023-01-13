@@ -1,0 +1,8 @@
+venv
+alembic
+alembic.ini
+.secrets.json
+.gitignore
+.git
+__pycache__
+*.md
