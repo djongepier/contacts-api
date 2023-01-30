@@ -77,3 +77,15 @@ services:
     volumes:
       - <your directory or volume>:/var/lib/postgresql/data
 ```
+
+### Example development container.
+
+```commandline
+docker run --name postgres -e POSTGRES_PASSWORD=contacts -e POSTGRES_USER=contacts -e POSTGRES_DB=contacts-api -p 5432:5432 postgres:14-alpine
+```
+
+### To start the project for testing.
+
+```commandline
+uvicorn main:app --reload
+```
