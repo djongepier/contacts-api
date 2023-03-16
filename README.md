@@ -19,6 +19,7 @@ I have developed this Web API with the following components.
 
 * FastAPI
 * FastAPI CRUDRouter
+* API Key authentication inspiration from: https://nilsdebruin.medium.com/fastapi-authentication-revisited-enabling-api-key-authentication-122dc5975680
 
 With a PostgreSQL database in mind.
 
